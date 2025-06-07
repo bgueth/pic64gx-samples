@@ -1,0 +1,46 @@
+#ifndef GPIO_H
+#define GPIO_H
+#define GPIO1_BASE 0x20121000
+#define GPIO_CONFIG_0 0x0
+#define GPIO_CONFIG_1 0x4
+#define GPIO_CONFIG_2 0x8
+#define GPIO_CONFIG_3 0xc
+#define GPIO_CONFIG_4 0x10
+#define GPIO_CONFIG_5 0x14
+#define GPIO_CONFIG_6 0x18
+#define GPIO_CONFIG_7 0x1c
+#define GPIO_CONFIG_8 0x20
+#define GPIO_CONFIG_9 0x24
+#define GPIO_CONFIG_10 0x28
+#define GPIO_CONFIG_11 0x2c
+#define GPIO_CONFIG_12 0x30
+#define GPIO_CONFIG_13 0x34
+#define GPIO_CONFIG_14 0x38
+#define GPIO_CONFIG_15 0x3c
+#define GPIO_CONFIG_16 0x40
+#define GPIO_CONFIG_17 0x44
+#define GPIO_CONFIG_18 0x48
+#define GPIO_CONFIG_19 0x4c
+#define GPIO_CONFIG_20 0x50
+#define GPIO_CONFIG_21 0x54
+#define GPIO_CONFIG_22 0x58
+#define GPIO_CONFIG_23 0x5c
+#define GPIO_CONFIG_24 0x60
+#define GPIO_CONFIG_25 0x64
+#define GPIO_CONFIG_26 0x68
+#define GPIO_CONFIG_27 0x6c
+#define GPIO_CONFIG_28 0x70
+#define GPIO_CONFIG_29 0x74
+#define GPIO_CONFIG_30 0x78
+#define GPIO_CONFIG_31 0x7c
+#define GPIO_INTR 0x80
+#define GPIO_GPIN 0x84
+#define GPIO_GPOUT 0x88
+#define GPIO_CONFIG_ALL 0x8c
+#define GPIO_CONFIG_BYTE_0 0x90
+#define GPIO_CONFIG_BYTE_1 0x94
+#define GPIO_CONFIG_BYTE_2 0x98
+#define GPIO_CONFIG_BYTE_3 0x9c
+#define GPIO_CLEAR_BITS 0xa0
+#define GPIO_SET_BITS 0xa4
+#endif
