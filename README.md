@@ -15,3 +15,4 @@ Compile a target from the list below, then copy the HSS payload located in `buil
 |---|---|---|
 |[1](src/gpio_out/README.md)|gpio_out|Booting, Memory mapped devices, Privilege Modes|
 |[2](src/machine_timer/README.md)|machine_timer|Timer, Interrupt handling|
+|[3](src/user_mode/README.md)|user_mode|Interrupt handling, ECALLs, Exceptions|

@@ -57,4 +57,28 @@
 #define MTIMECMP3               0x2004018
 #define MTIMECMP4               0x2004020
 #define MTIME                   0x200bff8
+#define MCAUSE_SSI                      1 // supervisor software interrupt
+#define MCAUSE_MSI                      3 // machine software interrupt
+#define MCAUSE_STI                      5 // supervisor timer interrupt
+#define MCAUSE_MTI                      7 // machine timer interrupt
+#define MCAUSE_SEI                      9 // supervisor external interrupt
+#define MCAUSE_MEI                     11 // machine external interrupt
+#define MCAUSE_COUNTER_OVERFLOW        13 // counter overflow interrupt
+#define MCAUSE_INST_ADDR_MISALIGN       0 // instruction address misaligned
+#define MCAUSE_INST_ACCESS_FAULT        1 // instruction access fault
+#define MCAUSE_INST_ILLEGAL             2 // illegal instruction
+#define MCAUSE_BREAK                    3 // breakpoint
+#define MCAUSE_LOAD_ADDR_MISALIGN       4 // load address misaligned
+#define MCAUSE_LOAD_ACCESS_FAULT        5 // load access fault
+#define MCAUSE_STORE_ADDR_MISALIGN      6 // store/amo address misaligned
+#define MCAUSE_STORE_ACCESS_FAULT       7 // store/amo access fault
+#define MCAUSE_ECALL_U                  8 // environment call from u mode
+#define MCAUSE_ECALL_S                  9 // environment call from s mode
+#define MCAUSE_ECALL_M                 11 // environment call from m mode
+#define MCAUSE_INST_PAGE_FAULT         12 // instruction page fault
+#define MCAUSE_LOAD_PAGE_FAULT         13 // load page fault
+#define MCAUSE_STORE_PAGE_FAULT        15 // store/amo page fault
+#define MCAUSE_DOUBLE_TRAP             16 // double trap
+#define MCAUSE_SW_CHECK                18 // software check
+#define MCAUSE_HW_ERROR                19 // hardware error
 #endif
