@@ -1,0 +1,13 @@
+set-name: 'U54_1-DDR'
+
+hart-entry-points: {
+  u54_1: '0x80000000',
+}
+
+payloads:
+  ../build/machine_timer.elf:    {
+    owner-hart: u54_1,
+    priv-mode: prv_m,
+    skip-opensbi: true,
+    payload-name: "machine_timer"
+}

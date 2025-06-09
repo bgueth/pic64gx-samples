@@ -26,5 +26,14 @@ $(DST)/machine_timer.elf: $(DST)/machine_timer.o
 $(DST)/machine_timer.o: machine_timer/machine_timer.S
 	$(CC) -c $(CFLAGS) -o $@ $<
 
+user_mode: $(DST)/user_mode.elf
+	$(HSS) -c user_mode/single-hart.yaml $(DST)/output.bin
+
+$(DST)/user_mode.elf: $(DST)/user_mode.o
+	$(LD) -T user_mode/linker.ld -o $@ $<
+
+$(DST)/user_mode.o: user_mode/user_mode.S
+	$(CC) -c $(CFLAGS) -o $@ $<
+
 clean:
 	find "$(DST)" -type f -exec rm {} \;
