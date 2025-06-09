@@ -61,19 +61,20 @@ _m_int_handler:
     csrr a6, mscratch
     sd t0, (a6)
     sd t1, 8(a6)
+    sd a0, 16(a6)
 
-    csrr a6, mcause
+    csrr a0, mcause
 0:                          // ecall
     li t0, MCAUSE_ECALL_M
-    bne a6, t0, 1f
+    bne a0, t0, 1f
 
     // clear both mstatus mpp bits
-    csrr a6, mstatus
+    csrr a0, mstatus
     li t0, MSTATUS_MPP0_MASK
     li t1, MSTATUS_MPP1_MASK
     or t0, t0, t1
     not t0, t0
-    and t0, t0, a6
+    and t0, t0, a0
     csrw mstatus, t0
 
     // increment mepc
@@ -83,14 +84,14 @@ _m_int_handler:
     j 255f
 1:                          // illegal instruction
     li t0, MCAUSE_INST_ILLEGAL
-    bne a6, t0, 255f
-    li a6, GPIO1_BASE
+    bne a0, t0, 255f
+    li a0, GPIO1_BASE
     li t0, 4                // turn on LED1
-    sw t0, GPIO_GPOUT(a6)
+    sw t0, GPIO_GPOUT(a0)
     
 255:
-    csrr a6, mscratch
+    ld a0, 16(a6)
     ld t1, 8(a6)
     ld t0, (a6)
-    
+    csrrw a6, mscratch, a6
     mret

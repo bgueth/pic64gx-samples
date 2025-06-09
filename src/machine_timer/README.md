@@ -6,7 +6,7 @@ This example uses the timer to gernerate interrupts and toggle the status of a L
 * interrupt handling
 
 ## Timer
-For 64-bit architectures the [RISC-V Privileged ISA](https://github.com/riscv/riscv-isa-manual/releases/download/riscv-isa-release-c626715-2025-05-31/riscv-privileged.html) defines the 64-bit memmory mapped timer register `mtime`. Another memory mapped register `mtimecmp` allows to generate an interrupt, as soon as `mtime` reaches the value of `mtimecmp`.
+For 64-bit architectures the [RISC-V Privileged ISA](https://github.com/riscv/riscv-isa-manual/releases/download/riscv-isa-release-c626715-2025-05-31/riscv-privileged.html) defines the 64-bit memory mapped timer register `mtime`. Another memory mapped register `mtimecmp` allows to generate an interrupt, as soon as `mtime` reaches the value of `mtimecmp`.
 
 The PIC64GX connects a seperate 1-MHz clock signal to the timer so it does not depend on the CPU's system clock. All harts share the same `mtime` memory mapping defined in `include/risc_v.h`. Each hart uses its own `mtimecmp` memory mapping, so we use `MTIMECMP0` to `MTIMECMP4` as constants to address each of them. Since `MTIMECMP0` refers to the monitoring hart, we just consider the latter 4.
 

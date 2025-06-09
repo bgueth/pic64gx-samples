@@ -30,7 +30,7 @@ user_mode: $(DST)/user_mode.elf
 	$(HSS) -c user_mode/single-hart.yaml $(DST)/output.bin
 
 $(DST)/user_mode.elf: $(DST)/user_mode.o
-	$(LD) -T user_mode/linker.ld -o $@ $<
+	$(LD) -T ../gcc_support/linker-v1.ld -o $@ $<
 
 $(DST)/user_mode.o: user_mode/user_mode.S
 	$(CC) -c $(CFLAGS) -o $@ $<

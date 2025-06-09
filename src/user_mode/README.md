@@ -25,36 +25,36 @@ Changing priviledge modes can be performed by manupulating the `MPP` bits during
     csrw mscratch, t0
 ```
 
-This example uses the `mscratch` register to point at a memory region in the data segment, where the interrupt handler can save registers for later restore. Data sections and other sections compilers normally use have been added to the [linker script](linker.ld).
+This example uses the `mscratch` register to point at a memory region in the data segment, where the interrupt handler can save registers for later restore. Data sections and other sections compilers normally use have been added to the [linker script](../../gcc_support/linker-v1.ld), which has moved to a more general directory, so it does not need to be copied to each example.
 
 Since the example runs on a single hart, no guard to prevent concurrent access to this region is required.
 
 ```
-    csrr a6, mscratch
+    csrrw a6, mscratch, a6
     sd t0, (a6)
     sd t1, 8(a6)
 ```
 
-At the beginning of the interrupt handler, the mscratch register is used to store all registers, the interrupt handler will use and thus will change from the initial state.
+At the beginning of the interrupt handler, the mscratch register is used to store all registers, the interrupt handler will use and thus will change from the initial state. The `csrrw` instruction swaps values between `mscratch` and `a6`. This enables the developer to restore all registers, including a6. The rest of the code leaves `a6` untouched, so the value can be swapped back again.
 
 The `ecall` instruction triggers the interrupt handler. It is executed during the `_start` section, after initialization of GPIO unit and interrupt setup has finished. When the ECALL is executed, the hart performs the same tasks as when an interrupt occurs and by this sets the `mcause` register to the appropriate value. When `ecall` is executed, the hart is running in machine mode. This for, the value of `mcause` is set to `MCAUSE_ECALL_M`. 
 
 ```
-    csrr a6, mcause
+    csrr a0, mcause
 0:
     li t0, MCAUSE_ECALL_M
-    bne a6, t0, 1f
+    bne a0, t0, 1f
 ```
 
 The interrupt handler uses the `mcause` register to identify, if the interrupt has been executed by an ECALL. If so, it executes the following code.
 
 ```
-    csrr a6, mstatus
+    csrr a0, mstatus
     li t0, MSTATUS_MPP0_MASK
     li t1, MSTATUS_MPP1_MASK
     or t0, t0, t1
     not t0, t0
-    and t0, t0, a6
+    and t0, t0, a0
     csrw mstatus, t0
 ```
 The `MPP` bits of `mstatus` are cleared by and-ing the current value of `mstatus` with the inverted bitmask. When the hart returns to normal execution, this will change the privilege level to user mode.
@@ -75,9 +75,9 @@ As a common workaround, the program tries to set a bit in the `mstatus` register
 ```
     li t0, MCAUSE_INST_ILLEGAL
     bne a6, t0, 255f
-    li a6, GPIO1_BASE
+    li a0, GPIO1_BASE
     li t0, 4                // turn on LED1
-    sw t0, GPIO_GPOUT(a6)
+    sw t0, GPIO_GPOUT(a0)
 ```
 
 If the handler is called for an illegal instruction, it will simply turn the LED on, as indication that the handler treated an illegal instruction case.
